@@ -138,6 +138,9 @@ namespace Lab3
         public Image<Bgr,byte> Rotate(double angle)
         {
             var resultImage = new Image<Bgr, byte>(SourseImage.Width, SourseImage.Height);
+
+            /*--Исходный код поворота*/
+             
             for (int y = 0; y < SourseImage.Height; y++)
                 for(int x = 0; x < SourseImage.Width; x++)
                 {
@@ -149,6 +152,56 @@ namespace Lab3
 
                     resultImage[(int)newY, (int)newX] = SourseImage[y, x];
                 }
+                
+
+            //for (int y = 0; y < SourseImage.Height; y++)
+            //    for (int x = 0; x < SourseImage.Width; x++)
+            //    {
+            //        double newX = Math.Cos(angle) * x - Math.Sin(angle) * y;
+            //        double newY = Math.Sin(angle) * x + Math.Cos(angle) * y;
+
+            //        if (newX < 0 || newY < 0) continue;
+
+            //        if ((int)newX >= SourseImage.Width || (int)newY >= SourseImage.Height) continue;
+
+            //       // /*---Искомая точка---*/
+
+            //        var kX = (newX / x);
+            //        var kY = (newY / y);
+
+            //        double X;
+            //        double Y;
+
+            //        if (x == 0) X = 0;
+            //        else X = newX / kX;
+
+            //        if (y == 0) Y = 0;
+            //        else Y = newY / kY;
+
+            //        /*---Округление искомой точки, до ближайшего значения координат---*/
+            //        int XinSourse = (int)Math.Floor(X);
+            //        int YinSourse = (int)Math.Floor(Y);
+
+            //        /*---Дистанция от искомой, до ближайшей точки---*/
+            //        double deltaX = X - XinSourse;
+            //        double deltaY = Y - YinSourse;
+
+            //        for (int ch = 0; ch < 3; ch++)
+            //        {
+
+            //            var res = SourseImage.Data[YinSourse, XinSourse, ch] * (1 - deltaX) * (1 - deltaY)
+            //                    + SourseImage.Data[YinSourse, XinSourse + 1, ch] * deltaX * (1 - deltaY)
+            //                    + SourseImage.Data[YinSourse + 1, XinSourse, ch] * (1 - deltaX) * deltaY
+            //                    + SourseImage.Data[YinSourse + 1, XinSourse + 1, ch] * deltaX * deltaY;
+
+            //            if (res > 255) res = 255;
+            //            else if (res < 0) res = 0;
+
+            //            resultImage.Data[y, x, ch] = Convert.ToByte(res);
+
+            //        }
+            //    }
+
 
             return resultImage;
         }

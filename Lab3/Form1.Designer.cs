@@ -30,6 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             this.Panel_instr = new System.Windows.Forms.Panel();
+            this.clear_points = new System.Windows.Forms.Button();
+            this.p11_cb = new System.Windows.Forms.CheckBox();
+            this.p10_cb = new System.Windows.Forms.CheckBox();
+            this.p01_cb = new System.Windows.Forms.CheckBox();
+            this.p00_cb = new System.Windows.Forms.CheckBox();
+            this.Project_button = new System.Windows.Forms.Button();
             this.Save_button = new System.Windows.Forms.Button();
             this.Clear_button = new System.Windows.Forms.Button();
             this.LoadIMG_button = new System.Windows.Forms.Button();
@@ -57,12 +63,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.Scale_lbl = new System.Windows.Forms.Label();
             this.ImageBox = new Emgu.CV.UI.ImageBox();
-            this.Project_button = new System.Windows.Forms.Button();
-            this.p00_cb = new System.Windows.Forms.CheckBox();
-            this.p01_cb = new System.Windows.Forms.CheckBox();
-            this.p10_cb = new System.Windows.Forms.CheckBox();
-            this.p11_cb = new System.Windows.Forms.CheckBox();
-            this.clear_points = new System.Windows.Forms.Button();
             this.Panel_instr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Rotate_bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Shift_bar_Y)).BeginInit();
@@ -110,6 +110,70 @@
             this.Panel_instr.Name = "Panel_instr";
             this.Panel_instr.Size = new System.Drawing.Size(380, 550);
             this.Panel_instr.TabIndex = 1;
+            // 
+            // clear_points
+            // 
+            this.clear_points.Location = new System.Drawing.Point(187, 440);
+            this.clear_points.Name = "clear_points";
+            this.clear_points.Size = new System.Drawing.Size(172, 22);
+            this.clear_points.TabIndex = 33;
+            this.clear_points.Text = "Clear Points";
+            this.clear_points.UseVisualStyleBackColor = true;
+            // 
+            // p11_cb
+            // 
+            this.p11_cb.AutoSize = true;
+            this.p11_cb.Enabled = false;
+            this.p11_cb.Location = new System.Drawing.Point(137, 444);
+            this.p11_cb.Name = "p11_cb";
+            this.p11_cb.Size = new System.Drawing.Size(44, 17);
+            this.p11_cb.TabIndex = 32;
+            this.p11_cb.Text = "p11";
+            this.p11_cb.UseVisualStyleBackColor = true;
+            // 
+            // p10_cb
+            // 
+            this.p10_cb.AutoSize = true;
+            this.p10_cb.Enabled = false;
+            this.p10_cb.Location = new System.Drawing.Point(94, 444);
+            this.p10_cb.Name = "p10_cb";
+            this.p10_cb.Size = new System.Drawing.Size(44, 17);
+            this.p10_cb.TabIndex = 31;
+            this.p10_cb.Text = "p10";
+            this.p10_cb.UseVisualStyleBackColor = true;
+            // 
+            // p01_cb
+            // 
+            this.p01_cb.AutoSize = true;
+            this.p01_cb.Enabled = false;
+            this.p01_cb.Location = new System.Drawing.Point(52, 444);
+            this.p01_cb.Name = "p01_cb";
+            this.p01_cb.Size = new System.Drawing.Size(44, 17);
+            this.p01_cb.TabIndex = 30;
+            this.p01_cb.Text = "p01";
+            this.p01_cb.UseVisualStyleBackColor = true;
+            // 
+            // p00_cb
+            // 
+            this.p00_cb.AutoSize = true;
+            this.p00_cb.Enabled = false;
+            this.p00_cb.Location = new System.Drawing.Point(9, 444);
+            this.p00_cb.Name = "p00_cb";
+            this.p00_cb.Size = new System.Drawing.Size(44, 17);
+            this.p00_cb.TabIndex = 29;
+            this.p00_cb.Text = "p00";
+            this.p00_cb.UseVisualStyleBackColor = true;
+            // 
+            // Project_button
+            // 
+            this.Project_button.Enabled = false;
+            this.Project_button.Location = new System.Drawing.Point(9, 467);
+            this.Project_button.Name = "Project_button";
+            this.Project_button.Size = new System.Drawing.Size(351, 22);
+            this.Project_button.TabIndex = 28;
+            this.Project_button.Text = "Projection";
+            this.Project_button.UseVisualStyleBackColor = true;
+            this.Project_button.Click += new System.EventHandler(this.Project_button_Click);
             // 
             // Save_button
             // 
@@ -198,12 +262,12 @@
             // 
             // Rotate_bar
             // 
-            this.Rotate_bar.LargeChange = 174;
+            this.Rotate_bar.LargeChange = 10440;
             this.Rotate_bar.Location = new System.Drawing.Point(29, 361);
             this.Rotate_bar.Maximum = 62831;
             this.Rotate_bar.Name = "Rotate_bar";
             this.Rotate_bar.Size = new System.Drawing.Size(290, 45);
-            this.Rotate_bar.SmallChange = 174;
+            this.Rotate_bar.SmallChange = 10440;
             this.Rotate_bar.TabIndex = 17;
             this.Rotate_bar.Scroll += new System.EventHandler(this.Rotate_bar_Scroll);
             // 
@@ -368,70 +432,6 @@
             this.ImageBox.TabIndex = 2;
             this.ImageBox.TabStop = false;
             this.ImageBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ImageBox_MouseClick);
-            // 
-            // Project_button
-            // 
-            this.Project_button.Enabled = false;
-            this.Project_button.Location = new System.Drawing.Point(9, 467);
-            this.Project_button.Name = "Project_button";
-            this.Project_button.Size = new System.Drawing.Size(351, 22);
-            this.Project_button.TabIndex = 28;
-            this.Project_button.Text = "Projection";
-            this.Project_button.UseVisualStyleBackColor = true;
-            this.Project_button.Click += new System.EventHandler(this.Project_button_Click);
-            // 
-            // p00_cb
-            // 
-            this.p00_cb.AutoSize = true;
-            this.p00_cb.Enabled = false;
-            this.p00_cb.Location = new System.Drawing.Point(9, 444);
-            this.p00_cb.Name = "p00_cb";
-            this.p00_cb.Size = new System.Drawing.Size(44, 17);
-            this.p00_cb.TabIndex = 29;
-            this.p00_cb.Text = "p00";
-            this.p00_cb.UseVisualStyleBackColor = true;
-            // 
-            // p01_cb
-            // 
-            this.p01_cb.AutoSize = true;
-            this.p01_cb.Enabled = false;
-            this.p01_cb.Location = new System.Drawing.Point(52, 444);
-            this.p01_cb.Name = "p01_cb";
-            this.p01_cb.Size = new System.Drawing.Size(44, 17);
-            this.p01_cb.TabIndex = 30;
-            this.p01_cb.Text = "p01";
-            this.p01_cb.UseVisualStyleBackColor = true;
-            // 
-            // p10_cb
-            // 
-            this.p10_cb.AutoSize = true;
-            this.p10_cb.Enabled = false;
-            this.p10_cb.Location = new System.Drawing.Point(94, 444);
-            this.p10_cb.Name = "p10_cb";
-            this.p10_cb.Size = new System.Drawing.Size(44, 17);
-            this.p10_cb.TabIndex = 31;
-            this.p10_cb.Text = "p10";
-            this.p10_cb.UseVisualStyleBackColor = true;
-            // 
-            // p11_cb
-            // 
-            this.p11_cb.AutoSize = true;
-            this.p11_cb.Enabled = false;
-            this.p11_cb.Location = new System.Drawing.Point(137, 444);
-            this.p11_cb.Name = "p11_cb";
-            this.p11_cb.Size = new System.Drawing.Size(44, 17);
-            this.p11_cb.TabIndex = 32;
-            this.p11_cb.Text = "p11";
-            this.p11_cb.UseVisualStyleBackColor = true;
-            // 
-            // clear_points
-            // 
-            this.clear_points.Location = new System.Drawing.Point(187, 440);
-            this.clear_points.Name = "clear_points";
-            this.clear_points.Size = new System.Drawing.Size(172, 22);
-            this.clear_points.TabIndex = 33;
-            this.clear_points.Text = "Clear Points";
-            this.clear_points.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
