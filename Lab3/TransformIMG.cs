@@ -29,9 +29,10 @@ namespace Lab3
         //Выдает ошибку. "Индекс за пределами массива"
         public Image<Bgr,byte> Scale(double _scaleX, double _scaleY)
         {
-            var newImage = new Image<Bgr, byte>((int)(SourseImage.Width * _scaleX),(int)(SourseImage.Height * _scaleY));       
-            
-            /*--DeafoltScale
+            var newImage = new Image<Bgr, byte>((int)(SourseImage.Width * _scaleX), (int)(SourseImage.Height * _scaleY));
+
+            /*
+             * --DeafoltScale-- *
              
             for (int y = 0; y < SourseImage.Height; y++)
                 for(int x = 0; x < SourseImage.Width; x++)
@@ -148,25 +149,45 @@ namespace Lab3
                     double newY = Math.Sin(angle) * x + Math.Cos(angle) * y;
                     if (newX < 0 || newY < 0) continue;
 
-                    if ((int)newX >= SourseImage.Width || (int)newY >= SourseImage.Height) continue;
+                    if ((int)newX >= SourseImage.Width-1 || (int)newY >= SourseImage.Height-1) continue;
 
+                    resultImage[(int)newY, (int)newX] = SourseImage[y, x];
+
+                }
+
+            for (int y = 0; y < resultImage.Height - 1; y++)
+                for (int x = 0; x < resultImage.Width - 1; x++)
+                {
+                    /*---Искомые точки---*/
+                    double newX = Math.Cos(-angle) * x - Math.Sin(-angle) * y;
+                    double newY = Math.Sin(-angle) * x + Math.Cos(-angle) * y;
+
+                    if (newX < 0 || newY < 0) continue;
+
+                    if ((int)newX >= SourseImage.Width-1 || (int)newY >= SourseImage.Height-1) continue;
+
+
+                    /*---Floor dots---*/
+                    int XinSourse = (int)Math.Floor(newX);
+                    int YinSourse = (int)Math.Floor(newY);
+
+                    /*---Дистанция от искомой, до ближайшей точки---*/
+                    double deltaX = newX - XinSourse;
+                    double deltaY = newY - YinSourse;
 
                     for (int ch = 0; ch < 3; ch++)
                     {
-                        var res = SourseImage.Data[y, x, ch] 
-                                + SourseImage.Data[y, x + 1, ch] 
-                                + SourseImage.Data[y + 1, x, ch]
-                                + SourseImage.Data[y + 1, x + 1, ch];
-                        res /= 4;
+                        var res = SourseImage.Data[(int)newY, (int)newX, ch] * (1 - deltaX) * (1 - deltaY)
+                                 + SourseImage.Data[(int)newY, (int)(newX + 1), ch] * deltaX * (1 - deltaY)
+                                 + SourseImage.Data[(int)(newY + 1), (int)newX, ch] * (1 - deltaX) * deltaY
+                                 + SourseImage.Data[(int)(newY + 1), (int)(newX + 1), ch] * deltaX * deltaY;
 
                         if (res > 255) res = 255;
                         else if (res < 0) res = 0;
 
-                        resultImage.Data[(int)newY,(int)newX, ch] = Convert.ToByte(res);
-
+                        resultImage.Data[y, x, ch] = Convert.ToByte(res);
                     }
                 }
-
 
 
             //for (int y = 0; y < SourseImage.Height-2; y++)
