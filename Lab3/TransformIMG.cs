@@ -13,12 +13,13 @@ namespace Lab3
     class TransformIMG
     {
         private Image<Bgr, byte> SourseImage;
-        private Image<Bgr, byte> ResImageCircl;
+
+        private string FileName;
 
         public TransformIMG(string FileName)
         {
+            this.FileName = FileName;
             SourseImage = new Image<Bgr, byte>(FileName);
-            ResImageCircl = new Image<Bgr, byte>(FileName);
         }
 
         public Image<Bgr, byte> GetImg()
@@ -26,7 +27,6 @@ namespace Lab3
             return SourseImage;
         }
 
-        //Выдает ошибку. "Индекс за пределами массива"
         public Image<Bgr,byte> Scale(double _scaleX, double _scaleY)
         {
             var newImage = new Image<Bgr, byte>((int)(SourseImage.Width * _scaleX), (int)(SourseImage.Height * _scaleY));
@@ -82,19 +82,6 @@ namespace Lab3
                 }
            
             */
-
-            return newImage;
-        }
-
-        public Image<Bgr,byte> ShiftDeafolt(int shiftX, int shiftY)
-        {
-            var newImage = new Image<Bgr, byte>(SourseImage.Width, SourseImage.Height);
-
-            for (int y = 0; y < SourseImage.Height - shiftY; y++)
-                for (int x = 0; x < SourseImage.Width - shiftX; x++)
-                {
-                    newImage[y + shiftY, x + shiftX] = SourseImage[y, x];
-                }
 
             return newImage;
         }
@@ -272,9 +259,15 @@ namespace Lab3
             int radius = 2;
             int thickness = 2;
             var color = new Bgr(Color.Red).MCvScalar;
-            CvInvoke.Circle(ResImageCircl, center, radius, color, thickness);
+            CvInvoke.Circle(SourseImage, center, radius, color, thickness);
 
-            return ResImageCircl;
+            return SourseImage;
+        }
+
+        public Image<Bgr,byte> ClearCircl()
+        {
+            SourseImage = new Image<Bgr, byte>(FileName);
+            return SourseImage;
         }
 
     }

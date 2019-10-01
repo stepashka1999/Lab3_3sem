@@ -119,6 +119,7 @@
             this.clear_points.TabIndex = 33;
             this.clear_points.Text = "Clear Points";
             this.clear_points.UseVisualStyleBackColor = true;
+            this.clear_points.Click += new System.EventHandler(this.Clear_points_Click);
             // 
             // p11_cb
             // 
@@ -259,6 +260,8 @@
             this.RotateBar_tb.Name = "RotateBar_tb";
             this.RotateBar_tb.Size = new System.Drawing.Size(45, 20);
             this.RotateBar_tb.TabIndex = 19;
+            this.RotateBar_tb.Text = "0";
+            this.RotateBar_tb.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RotateBar_tb_KeyPress);
             // 
             // Rotate_bar
             // 

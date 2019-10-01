@@ -62,6 +62,7 @@ namespace Lab3
             }
         }
 
+        //Press Enter fofr Shift
         private void KeyPressedShift(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
@@ -133,13 +134,17 @@ namespace Lab3
             int x = (int)(e.Location.X / ImageBox.ZoomScale);
             int y = (int)(e.Location.Y / ImageBox.ZoomScale);
 
-            if (cb > 3) cb = 0;
+            if (cb > 3)
+            {
+                cb = 0;
+                ImageBox.Image = res.ClearCircl();
+                Project_button.Enabled = false;
+            }
 
             p[cb].X = x;
             p[cb].Y = y;
 
-            cb++;
-
+            
             switch (cb)
             {
                 case 0:
@@ -147,24 +152,54 @@ namespace Lab3
                     Project_button.Enabled = false;
                     break;
                 case 1:
-                    p01_cb.Checked = Enabled;
+                    p01_cb.Checked = true;
                     break;
                 case 2:
-                    p10_cb.Checked = Enabled;
+                    p10_cb.Checked = true;
                     break;
                 case 3:
-                    p11_cb.Checked = Enabled;
+                    p11_cb.Checked = true;
                     Project_button.Enabled = true;
                     break;
             }
 
+            cb++;
             ImageBox.Image = res.DrawCircle(x, y);
 
         }
 
         private void Project_button_Click(object sender, EventArgs e)
         {
+            res.ClearCircl();
             ImageBox.Image = res.Project(p);
+        }
+
+        private void Clear_points_Click(object sender, EventArgs e)
+        {
+            for(int i = 0; i < 4; i++)
+            {
+                p[i].X = 0;
+                p[i].Y = 0;
+            }
+
+            p00_cb.Checked = false;
+            p01_cb.Checked = false;
+            p10_cb.Checked = false;
+            p11_cb.Checked = false;
+
+            Project_button.Enabled = false;
+
+            cb = 0;
+            ImageBox.Image = res.ClearCircl();
+        }
+
+        private void RotateBar_tb_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                Rotate_bar.Value = Convert.ToInt32(RotateBar_tb.Text);
+                ImageBox.Image = res.Rotate(Rotate_bar.Value * (Math.PI / 180)).Resize(ImageBox.Width, ImageBox.Height, Inter.Linear);
+            }
         }
     }
 }
