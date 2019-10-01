@@ -83,15 +83,14 @@ namespace Lab3
         private void Shift_bar_Y_Scroll(object sender, EventArgs e)
         {
             ShiftY_tb.Text = (Convert.ToDouble(Shift_bar_Y.Value) / 10).ToString();
-            
             //ImageBox.Image = res.ShiftY((Convert.ToDouble(Shift_bar_X.Value) / 10), (Convert.ToDouble(Shift_bar_Y.Value) / 10)).Resize(ImageBox.Width, ImageBox.Height, Inter.Linear);
             ImageBox.Image = res.ShiftY((Convert.ToDouble(Shift_bar_X.Value) / 10), (Convert.ToDouble(Shift_bar_Y.Value) / 10)).Resize(ImageBox.Width, ImageBox.Height, Inter.Linear);
         }
 
         private void Rotate_bar_Scroll(object sender, EventArgs e)
         {
-            ImageBox.Image = res.Rotate((double)(Rotate_bar.Value/10000)).Resize(ImageBox.Width, ImageBox.Height, Inter.Linear);
-            RotateBar_tb.Text = ((double)(Rotate_bar.Value/174)).ToString();
+            ImageBox.Image = res.Rotate(Rotate_bar.Value * (Math.PI / 180)).Resize(ImageBox.Width, ImageBox.Height, Inter.Linear);
+            RotateBar_tb.Text = Rotate_bar.Value.ToString();
         }
 
         private void Mir1_button_Click(object sender, EventArgs e)

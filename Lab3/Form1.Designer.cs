@@ -262,12 +262,11 @@
             // 
             // Rotate_bar
             // 
-            this.Rotate_bar.LargeChange = 10440;
+            this.Rotate_bar.LargeChange = 1;
             this.Rotate_bar.Location = new System.Drawing.Point(29, 361);
-            this.Rotate_bar.Maximum = 62831;
+            this.Rotate_bar.Maximum = 360;
             this.Rotate_bar.Name = "Rotate_bar";
             this.Rotate_bar.Size = new System.Drawing.Size(290, 45);
-            this.Rotate_bar.SmallChange = 10440;
             this.Rotate_bar.TabIndex = 17;
             this.Rotate_bar.Scroll += new System.EventHandler(this.Rotate_bar_Scroll);
             // 

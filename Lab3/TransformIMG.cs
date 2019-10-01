@@ -41,12 +41,12 @@ namespace Lab3
             
             */
 
-            for (int y = 0; y < newImage.Height - 1; y++)
-                for (int x = 0; x < newImage.Width - 1; x++)
+            for (int y = 0; y < newImage.Height - 2; y++)
+                for (int x = 0; x < newImage.Width - 2; x++)
                 {
                     /*---Искомая точка---*/
                     double X = x / _scaleX;
-                    double Y = y / _scaleY;
+                    double Y = y / _scaleY;     
 
                     /*---Округление искомой точки, до ближайшего значения координат---*/
                     int XinSourse = (int)Math.Floor(X);
@@ -59,10 +59,10 @@ namespace Lab3
                     for(int ch = 0; ch < 3; ch++)
                     {
 
-                        var res = SourseImage.Data[YinSourse, XinSourse, ch] * (1 - deltaX) * (1 - deltaY)
-                                + SourseImage.Data[YinSourse, XinSourse + 1, ch] * deltaX * (1 - deltaY)
-                                + SourseImage.Data[YinSourse + 1, XinSourse, ch] * (1 - deltaX) * deltaY
-                                + SourseImage.Data[YinSourse + 1, XinSourse + 1, ch] * deltaX * deltaY;
+                        var res = SourseImage.Data[(int)Y, (int)X, ch] * (1 - deltaX) * (1 - deltaY)
+                                + SourseImage.Data[(int)Y, (int)(X + 1), ch] * deltaX * (1 - deltaY)
+                                + SourseImage.Data[(int)(Y + 1), (int)X, ch] * (1 - deltaX) * deltaY
+                                + SourseImage.Data[(int)(Y + 1), (int)(X + 1), ch] * deltaX * deltaY;
 
                         if (res > 255) res = 255;
                         else if (res < 0) res = 0;
@@ -140,9 +140,9 @@ namespace Lab3
             var resultImage = new Image<Bgr, byte>(SourseImage.Width, SourseImage.Height);
 
             /*--Исходный код поворота*/
-             
-            for (int y = 0; y < SourseImage.Height; y++)
-                for(int x = 0; x < SourseImage.Width; x++)
+
+            for (int y = 0; y < SourseImage.Height-1; y++)
+                for (int x = 0; x < SourseImage.Width-1; x++)
                 {
                     double newX = Math.Cos(angle) * x - Math.Sin(angle) * y;
                     double newY = Math.Sin(angle) * x + Math.Cos(angle) * y;
@@ -150,12 +150,27 @@ namespace Lab3
 
                     if ((int)newX >= SourseImage.Width || (int)newY >= SourseImage.Height) continue;
 
-                    resultImage[(int)newY, (int)newX] = SourseImage[y, x];
-                }
-                
 
-            //for (int y = 0; y < SourseImage.Height; y++)
-            //    for (int x = 0; x < SourseImage.Width; x++)
+                    for (int ch = 0; ch < 3; ch++)
+                    {
+                        var res = SourseImage.Data[y, x, ch] 
+                                + SourseImage.Data[y, x + 1, ch] 
+                                + SourseImage.Data[y + 1, x, ch]
+                                + SourseImage.Data[y + 1, x + 1, ch];
+                        res /= 4;
+
+                        if (res > 255) res = 255;
+                        else if (res < 0) res = 0;
+
+                        resultImage.Data[(int)newY,(int)newX, ch] = Convert.ToByte(res);
+
+                    }
+                }
+
+
+
+            //for (int y = 0; y < SourseImage.Height-2; y++)
+            //    for (int x = 0; x < SourseImage.Width-2; x++)
             //    {
             //        double newX = Math.Cos(angle) * x - Math.Sin(angle) * y;
             //        double newY = Math.Sin(angle) * x + Math.Cos(angle) * y;
@@ -164,40 +179,22 @@ namespace Lab3
 
             //        if ((int)newX >= SourseImage.Width || (int)newY >= SourseImage.Height) continue;
 
-            //       // /*---Искомая точка---*/
-
-            //        var kX = (newX / x);
-            //        var kY = (newY / y);
-
-            //        double X;
-            //        double Y;
-
-            //        if (x == 0) X = 0;
-            //        else X = newX / kX;
-
-            //        if (y == 0) Y = 0;
-            //        else Y = newY / kY;
-
-            //        /*---Округление искомой точки, до ближайшего значения координат---*/
-            //        int XinSourse = (int)Math.Floor(X);
-            //        int YinSourse = (int)Math.Floor(Y);
-
             //        /*---Дистанция от искомой, до ближайшей точки---*/
-            //        double deltaX = X - XinSourse;
-            //        double deltaY = Y - YinSourse;
+            //        double deltaX = x - (2*Math.Sin(angle/2));
+            //        double deltaY = y - (2 * Math.Sin(angle / 2));
 
             //        for (int ch = 0; ch < 3; ch++)
             //        {
 
-            //            var res = SourseImage.Data[YinSourse, XinSourse, ch] * (1 - deltaX) * (1 - deltaY)
-            //                    + SourseImage.Data[YinSourse, XinSourse + 1, ch] * deltaX * (1 - deltaY)
-            //                    + SourseImage.Data[YinSourse + 1, XinSourse, ch] * (1 - deltaX) * deltaY
-            //                    + SourseImage.Data[YinSourse + 1, XinSourse + 1, ch] * deltaX * deltaY;
+            //            var res = SourseImage.Data[y, x, ch] * (1 - deltaX) * (1 - deltaY)
+            //                    + SourseImage.Data[y, x + 1, ch] * deltaX * (1 - deltaY)
+            //                    + SourseImage.Data[y + 1, x, ch] * (1 - deltaX) * deltaY
+            //                    + SourseImage.Data[y + 1, x + 1, ch] * deltaX * deltaY;
 
             //            if (res > 255) res = 255;
             //            else if (res < 0) res = 0;
 
-            //            resultImage.Data[y, x, ch] = Convert.ToByte(res);
+            //            resultImage.Data[(int)newY, (int)newX, ch] = Convert.ToByte(res);
 
             //        }
             //    }
